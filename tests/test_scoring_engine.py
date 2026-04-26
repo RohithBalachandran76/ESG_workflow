@@ -1,6 +1,5 @@
 """Unit tests for the ESG scoring engine."""
 
-import pytest
 
 from src.scoring.engine import ESGScore, score_company, score_from_dict
 

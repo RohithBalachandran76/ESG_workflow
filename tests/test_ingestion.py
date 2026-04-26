@@ -1,6 +1,5 @@
 """Tests for the data ingestion layer."""
 
-import pytest
 
 from src.ingestion.mock_loader import get_mock_company, load_mock_companies
 from src.ingestion.news_fetcher import _simple_sentiment

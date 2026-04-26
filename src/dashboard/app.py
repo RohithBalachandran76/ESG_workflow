@@ -16,9 +16,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from src.ingestion.pipeline import ingest_all
 from src.scoring.database import get_engine, get_session
-from src.scoring.engine import score_from_dict
 from src.scoring.models import CompanyESGRecord, ScoreHistory
 from src.workflow.esg_flow import run_esg_pipeline
 
