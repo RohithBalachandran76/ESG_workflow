@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   api:
     build: .
@@ -8,8 +6,10 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    environment:
+      - DATABASE_URL=sqlite:////app/data/esg_workflow.db
     volumes:
-      - esg_data:/app/esg_workflow.db
+      - esg_data:/app/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -24,8 +24,10 @@ services:
       - "8501:8501"
     env_file:
       - .env
+    environment:
+      - DATABASE_URL=sqlite:////app/data/esg_workflow.db
     volumes:
-      - esg_data:/app/esg_workflow.db
+      - esg_data:/app/data
     depends_on:
       - api
     command: streamlit run src/dashboard/app.py --server.port 8501 --server.address 0.0.0.0
@@ -35,13 +37,15 @@ services:
     container_name: esg_pipeline
     env_file:
       - .env
+    environment:
+      - DATABASE_URL=sqlite:////app/data/esg_workflow.db
     volumes:
-      - esg_data:/app/esg_workflow.db
+      - esg_data:/app/data
     depends_on:
       - api
     command: python -m src.workflow.esg_flow
     profiles:
-      - pipeline  # run manually: docker compose --profile pipeline up pipeline
+      - pipeline
 
 volumes:
   esg_data:
