@@ -1,0 +1,166 @@
+# ESG Scoring Rules Configuration
+# Aligned with CSRD / ESRS framework pillars
+# Scores are normalised to 0-100 per pillar; final ESG score is weighted average
+
+version: "1.0"
+framework: "CSRD/ESRS"  # EU Corporate Sustainability Reporting Directive
+
+weights:
+  environmental: 0.40
+  social: 0.35
+  governance: 0.25
+
+thresholds:
+  excellent: 75
+  good: 55
+  fair: 35
+  poor: 0
+
+alerts:
+  critical_breach: 30   # score below this triggers CRITICAL alert
+  watch_list: 45        # score below this triggers WATCH alert
+
+pillars:
+  environmental:
+    metrics:
+      carbon_intensity:
+        description: "CO2 emissions per unit revenue (tCO2/$M)"
+        weight: 0.30
+        direction: lower_is_better
+        benchmarks:
+          excellent: 50
+          good: 150
+          fair: 300
+          poor: 500
+      renewable_energy_pct:
+        description: "% of energy from renewable sources"
+        weight: 0.25
+        direction: higher_is_better
+        benchmarks:
+          excellent: 80
+          good: 50
+          fair: 25
+          poor: 0
+      water_usage_intensity:
+        description: "Water usage per unit revenue (m3/$M)"
+        weight: 0.20
+        direction: lower_is_better
+        benchmarks:
+          excellent: 100
+          good: 300
+          fair: 600
+          poor: 1000
+      waste_recycling_rate:
+        description: "% of waste recycled or recovered"
+        weight: 0.15
+        direction: higher_is_better
+        benchmarks:
+          excellent: 80
+          good: 55
+          fair: 30
+          poor: 0
+      environmental_fines:
+        description: "Number of regulatory fines in past 12 months"
+        weight: 0.10
+        direction: lower_is_better
+        benchmarks:
+          excellent: 0
+          good: 1
+          fair: 3
+          poor: 10
+
+  social:
+    metrics:
+      employee_safety_rate:
+        description: "Lost-time injury rate per 100 employees"
+        weight: 0.25
+        direction: lower_is_better
+        benchmarks:
+          excellent: 0.5
+          good: 1.5
+          fair: 3.0
+          poor: 5.0
+      gender_pay_gap:
+        description: "Gender pay gap % (0 = equal)"
+        weight: 0.20
+        direction: lower_is_better
+        benchmarks:
+          excellent: 2
+          good: 8
+          fair: 15
+          poor: 25
+      employee_turnover:
+        description: "Annual employee turnover %"
+        weight: 0.20
+        direction: lower_is_better
+        benchmarks:
+          excellent: 5
+          good: 12
+          fair: 20
+          poor: 35
+      community_investment_pct:
+        description: "Community investment as % of net profit"
+        weight: 0.15
+        direction: higher_is_better
+        benchmarks:
+          excellent: 2.0
+          good: 1.0
+          fair: 0.3
+          poor: 0
+      news_sentiment_score:
+        description: "Aggregated news sentiment score (-1 to 1)"
+        weight: 0.20
+        direction: higher_is_better
+        benchmarks:
+          excellent: 0.5
+          good: 0.1
+          fair: -0.2
+          poor: -0.6
+
+  governance:
+    metrics:
+      board_independence:
+        description: "% of independent board members"
+        weight: 0.30
+        direction: higher_is_better
+        benchmarks:
+          excellent: 75
+          good: 55
+          fair: 35
+          poor: 15
+      audit_committee_score:
+        description: "Audit committee quality score (0-100)"
+        weight: 0.20
+        direction: higher_is_better
+        benchmarks:
+          excellent: 85
+          good: 65
+          fair: 45
+          poor: 20
+      ceo_pay_ratio:
+        description: "CEO pay vs median employee pay (ratio)"
+        weight: 0.20
+        direction: lower_is_better
+        benchmarks:
+          excellent: 50
+          good: 150
+          fair: 300
+          poor: 500
+      corruption_incidents:
+        description: "Corruption/bribery incidents in past 24 months"
+        weight: 0.15
+        direction: lower_is_better
+        benchmarks:
+          excellent: 0
+          good: 0
+          fair: 1
+          poor: 3
+      transparency_score:
+        description: "ESG disclosure completeness score (0-100)"
+        weight: 0.15
+        direction: higher_is_better
+        benchmarks:
+          excellent: 90
+          good: 70
+          fair: 45
+          poor: 20

@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: esg_api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - esg_data:/app/esg_workflow.db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+
+  dashboard:
+    build: .
+    container_name: esg_dashboard
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      - esg_data:/app/esg_workflow.db
+    depends_on:
+      - api
+    command: streamlit run src/dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+
+  pipeline:
+    build: .
+    container_name: esg_pipeline
+    env_file:
+      - .env
+    volumes:
+      - esg_data:/app/esg_workflow.db
+    depends_on:
+      - api
+    command: python -m src.workflow.esg_flow
+    profiles:
+      - pipeline  # run manually: docker compose --profile pipeline up pipeline
+
+volumes:
+  esg_data:
