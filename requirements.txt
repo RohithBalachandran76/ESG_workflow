@@ -6,6 +6,7 @@ pydantic-settings==2.2.1
 
 # Orchestration
 prefect==2.19.4
+griffe>=0.20.0,<1.0.0  # prefect 2.19.4 uses griffe.dataclasses removed in 1.0
 
 # Data
 yfinance==0.2.38
