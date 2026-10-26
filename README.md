@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌿 ESG Workflow
+ESG Workflow
 
 **An end-to-end Environmental, Social & Governance scoring pipeline**  
 *Data ingestion · Automated scoring · REST API · Interactive dashboard · AI-powered Q&A*
